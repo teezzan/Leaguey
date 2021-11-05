@@ -15,10 +15,10 @@ import { cron } from "./utils/cron";
 
 const connectionOptions: ConnectionOptions = {
     type: "mysql",
-    host: "localhost",
+    host: "mysqldb",
     port: 3306,
-    username:"localuser",
-    password:"passworD1234!@#$",
+    username:"root",
+    password:"passworD",
     database:"leaguey",
     synchronize: true,
     logging: false,
