@@ -8,6 +8,7 @@
     "make:test": "jest",
     "make:serve": "npm run build && npm run serve",
     "serve": "node dist/server.js",
+    "start": "npm run serve",
 
 
     "watch-server": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
