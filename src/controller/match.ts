@@ -108,4 +108,22 @@ export default class MatchController {
         ctx.body = { results };
         return;
     }
+
+    @request("post", "/get_pairs")
+    @summary("Get matches")
+    @description("Get the league results available in a granulated form.")
+    @body({
+        season: { type: 'string', required: true, description: 'Season' },
+        div: { type: 'string', required: true, description: 'Division' },
+    })
+    public static async GetPairs(ctx: Context): Promise<void> {
+        
+        const div = ctx.request.body.div;
+        let raw_season = ctx.request.body.season;
+        let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
+        let results = await Match.find({ div, season });
+        ctx.status = 200;
+        ctx.body = { results };
+        return;
+    }
 }

@@ -9,6 +9,7 @@ matchRoute.get("/list_pair_tags", matches.ListPairsAsTag);
 matchRoute.get("/list_pairs", matches.ListPairs);
 
 matchRoute.get("/get_pairs_by_tag", matches.GetPairsByTag);
+matchRoute.post("/get_pairs", matches.GetPairs);
 
 
 
