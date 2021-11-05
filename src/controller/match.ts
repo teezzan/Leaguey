@@ -1,8 +1,8 @@
 import { Context } from "koa";
 import { validate, ValidationError } from "class-validator";
-import { request, summary, body, responsesAll, tagsAll, description } from "koa-swagger-decorator";
+import { request, summary, body, query, responsesAll, tagsAll, description } from "koa-swagger-decorator";
 
-import { matchSchema, Match } from "../entity/matches"
+import { Match } from "../entity/matches"
 import { getManager } from "typeorm";
 
 @responsesAll({ 200: { description: "success" }, 400: { description: "Bad request" } })
@@ -44,11 +44,10 @@ export default class MatchController {
             temp_output.push(`${div} ${season}`);
         }
 
-        let output = new Set(temp_output);
-
+        let output = [...new Set(temp_output)];
 
         ctx.status = 200;
-        ctx.body = { pairs: [...output] };
+        ctx.body = { pairs: output };
         return;
     }
 
@@ -90,6 +89,23 @@ export default class MatchController {
 
         ctx.status = 200;
         ctx.body = { pairs: output_tags };
+        return;
+    }
+
+    @request("get", "/get_pairs_by_tag")
+    @summary("Get matches by tag")
+    @description("Get the league results available by a tag.")
+    @query({
+        tag: { type: 'string', required: true, description: 'league season pair tag' },
+    })
+    public static async GetPairsByTag(ctx: Context): Promise<void> {
+        let tag = ctx.request.query.tag as string;
+        const div = tag.split(" ")[0]
+        let raw_season = tag.split(" ")[1]
+        let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
+        let results = await Match.find({ div, season });
+        ctx.status = 200;
+        ctx.body = { results };
         return;
     }
 }
