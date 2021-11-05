@@ -15,9 +15,9 @@ export class Match extends BaseEntity{
     @IsString()
     season: string;
 
-    @Column({ type: "date"})
+    @Column()
     @IsDate()
-    date: Date;
+    date: string;
 
     @Column()    
     @IsString()

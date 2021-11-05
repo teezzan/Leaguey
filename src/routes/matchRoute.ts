@@ -5,6 +5,7 @@ const matchRoute = new Router({
     prefix: "/matches"
 });
 matchRoute.post("/greet", matches.helloWorld);
+matchRoute.post("/list_pairs", matches.ListPairs);
 
 
 

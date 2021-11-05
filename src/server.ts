@@ -18,7 +18,7 @@ const connectionOptions: ConnectionOptions = {
     host: "localhost",
     port: 3306,
     username:"localuser",
-    password:"password",
+    password:"passworD1234!@#$",
     database:"leaguey",
     synchronize: true,
     logging: false,
