@@ -103,7 +103,11 @@ export default class MatchController {
         const div = tag.split(" ")[0]
         let raw_season = tag.split(" ")[1]
         let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
-        let results = await Match.find({ div, season });
+        let results = await getManager()
+            .createQueryBuilder(Match, "match")
+            .where("match.div = :div", { div })
+            .where("match.season = :season", { season })
+            .execute();
         ctx.status = 200;
         ctx.body = { results };
         return;
@@ -117,11 +121,15 @@ export default class MatchController {
         div: { type: 'string', required: true, description: 'Division' },
     })
     public static async GetPairs(ctx: Context): Promise<void> {
-        
+
         const div = ctx.request.body.div;
         let raw_season = ctx.request.body.season;
         let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
-        let results = await Match.find({ div, season });
+        let results = await getManager()
+            .createQueryBuilder(Match, "match")
+            .where("match.div = :div", { div })
+            .where("match.season = :season", { season })
+            .execute();
         ctx.status = 200;
         ctx.body = { results };
         return;

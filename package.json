@@ -4,14 +4,16 @@
   "description": "League Results at your finertips.",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
+    "make:up": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
+    "make:test": "jest",
+    "make:serve": "npm run build && npm run serve",
+    "serve": "node dist/server.js",
+
+
     "watch-server": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
     "build-ts": "tsc",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "serve": "node dist/server.js",
     "build": "npm run build-ts && npm run copy-static-assets",
-    "start": "npm run serve",
-    "test": "jest",
     "test:coverage": "jest --collect-coverage",
     "test:watch": "jest --watch"
   },
