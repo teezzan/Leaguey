@@ -10,6 +10,14 @@
 - [x] Generation of PDF of Results using query parameter `format=pdf`.
 - [x] Documentation with [OpenAPI](http://localhost:3000/swagger-html) (http://localhost:3000/swagger-html).
 
+## Images
+<details>
+<summary>Here are samples.</summary>
+
+![docs](./images/docs.png)
+![output](./images/pdf.png)
+</details>
+
 ## Built With
 
 - [Nodejs](https://nodejs.org/en/)
@@ -30,7 +38,10 @@ If you are considering the first two options of deployment, you would need to ha
 ### Docker-compose
 
 You need to run the project by running.
-`npm run make:up` or 
+```bash
+npm run make:up
+``` 
+or 
 
 ```bash
 docker-compose -f "docker-compose.yml" up -d --build
