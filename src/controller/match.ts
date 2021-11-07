@@ -2,7 +2,7 @@ import { Context } from "koa";
 import { validate, ValidationError } from "class-validator";
 import { request, summary, body, query, responsesAll, tagsAll, description } from "koa-swagger-decorator";
 
-import { Match } from "../entity/matches"
+import { MatchResults } from "../entity/matches"
 import { getManager } from "typeorm";
 
 @responsesAll({ 200: { description: "success" }, 400: { description: "Bad request" } })
@@ -21,28 +21,22 @@ export default class MatchController {
     @summary("List Available league and season pairs")
     @description("List the league and season pairs for which there are results available as string tags.")
     public static async ListPairsAsTag(ctx: Context): Promise<void> {
-        let output_tags: Array<{
-            div: string,
-            season: string
-        }> = [];
-
-        let temp_output: Array<string> = [];
 
         const matches: Array<{
             match_div: string,
             match_season: string
         }> = await getManager()
-            .createQueryBuilder(Match, "match")
+            .createQueryBuilder(MatchResults, "match")
             .select(["match.div", "match.season"])
             .execute();
 
 
-        for (let i = 0; i < matches.length; i++) {
-            const match = matches[i]
+        let temp_output = matches.map((match) => {
             let div = match.match_div;
             let season = `${match.match_season.substr(0, 4)}-20${match.match_season.substr(4)}`
-            temp_output.push(`${div} ${season}`);
-        }
+            return `${div} ${season}`
+        })
+
 
         let output = [...new Set(temp_output)];
 
@@ -56,36 +50,31 @@ export default class MatchController {
     @summary("List Available league and season pairs in proper json")
     @description("List the league and season pairs for which there are results available.")
     public static async ListPairs(ctx: Context): Promise<void> {
-        let output_tags: Array<{
-            div: string,
-            season: string
-        }> = [];
-
-        let temp_output: Array<string> = [];
 
         const matches: Array<{
             match_div: string,
             match_season: string
         }> = await getManager()
-            .createQueryBuilder(Match, "match")
+            .createQueryBuilder(MatchResults, "match")
             .select(["match.div", "match.season"])
             .execute();
 
 
-        for (let i = 0; i < matches.length; i++) {
-            const match = matches[i]
+        let temp_output = matches.map((match) => {
             let div = match.match_div;
             let season = `${match.match_season.substr(0, 4)}-20${match.match_season.substr(4)}`
-            temp_output.push(`${div} ${season}`);
-        }
+            return `${div} ${season}`
+        })
+
 
         let output = [...new Set(temp_output)];
-        for (let j = 0; j < output.length; j++) {
-            output_tags.push({
-                div: output[j].split(' ')[0],
-                season: output[j].split(' ')[1],
-            })
-        }
+
+        let output_tags = output.map((el) => {
+            return {
+                div: el.split(' ')[0],
+                season: el.split(' ')[1],
+            }
+        })
 
         ctx.status = 200;
         ctx.body = { pairs: output_tags };
@@ -104,7 +93,7 @@ export default class MatchController {
         let raw_season = tag.split(" ")[1]
         let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
         let results = await getManager()
-            .createQueryBuilder(Match, "match")
+            .createQueryBuilder(MatchResults, "match")
             .where("match.div = :div", { div })
             .where("match.season = :season", { season })
             .execute();
@@ -126,7 +115,7 @@ export default class MatchController {
         let raw_season = ctx.request.body.season;
         let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
         let results = await getManager()
-            .createQueryBuilder(Match, "match")
+            .createQueryBuilder(MatchResults, "match")
             .where("match.div = :div", { div })
             .where("match.season = :season", { season })
             .execute();

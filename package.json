@@ -9,8 +9,6 @@
     "make:serve": "npm run build && npm run serve",
     "serve": "node dist/server.js",
     "start": "npm run serve",
-
-
     "watch-server": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
     "build-ts": "tsc",
     "copy-static-assets": "ts-node copyStaticAssets.ts",
@@ -51,6 +49,7 @@
     "@types/redis": "^2.8.30",
     "class-validator": "^0.13.1",
     "cron": "^1.8.2",
+    "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
     "jose": "^3.13.0",
     "koa": "^2.13.1",

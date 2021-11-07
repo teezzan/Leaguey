@@ -3,7 +3,7 @@ import { IsDate, IsNumber, IsString } from "class-validator";
 
 
 @Entity()
-export class Match {
+export class MatchResults {
     @PrimaryGeneratedColumn()
     id: number;
 

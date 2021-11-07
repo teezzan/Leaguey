@@ -5,6 +5,9 @@
 node_modules
 bower_components
 
+# Docker Volumes
+db/
+
 # Editors
 .idea
 *.iml

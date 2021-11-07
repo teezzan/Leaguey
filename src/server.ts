@@ -13,27 +13,33 @@ import { matchRoute } from "./routes/matchRoute";
 import { cron } from "./utils/cron";
 
 
+
+
 const connectionOptions: ConnectionOptions = {
     type: "mysql",
-    host: "mysqldb",
+    host: config.host,
     port: 3306,
-    username:"root",
-    password:"passworD",
-    database:"leaguey",
+    username: "localuser",
+    password: "passworD1234!@#$",
+    database: "leaguey",
     synchronize: true,
     logging: false,
     entities: config.dbEntitiesPath,
-    ssl: config.dbsslconn, 
+    cli: config.cli,
+    migrations: config.migrations,
+    ssl: config.dbsslconn,
     extra: {}
 };
 if (connectionOptions.ssl) {
     connectionOptions.extra.ssl = {
-        rejectUnauthorized: false 
+        rejectUnauthorized: false
     };
 }
 
+createConnection(connectionOptions).then(async (conn) => {
 
-createConnection(connectionOptions).then(async () => {
+    await conn.runMigrations();
+ 
 
     const app = new Koa();
 
