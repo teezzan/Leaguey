@@ -4,9 +4,11 @@
   "description": "League Results at your finertips.",
   "main": "dist/server.js",
   "scripts": {
-    "make:up": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
+    "make:serve": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",
     "make:test": "jest",
-    "make:serve": "npm run build && npm run serve",
+    "make:build": "npm run build && npm run serve",
+    "make:up": "docker-compose -f \"docker-compose.yml\" up -d --build",
+    
     "serve": "node dist/server.js",
     "start": "npm run serve",
     "watch-server": "nodemon --ignore tests/ --watch src -e ts,tsx --exec ts-node src/server.ts",

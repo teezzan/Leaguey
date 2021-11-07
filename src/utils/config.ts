@@ -17,7 +17,14 @@ export interface Config {
 }
 
 const isDevMode = process.env.NODE_ENV == "development";
-const host = isDevMode ? "localhost" : "mysqldb";
+
+let host;
+if (process.env.NODE_ENV !== "development"){
+  host = "mysqldb";  
+}
+else {
+  host = "localhost";
+}
 
 const config: Config = {
   host: !!process.env.MYSQL_HOST ? process.env.MYSQL_HOST : host,
