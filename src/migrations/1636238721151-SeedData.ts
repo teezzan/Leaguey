@@ -6,7 +6,7 @@ const csvFilePath = 'data/Data.csv';
 export class SeedData1636238721151 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        console.log("running Seeding migration");
+        console.log("Running Seeding migration");
 
 
         const importDataArray = await csv().fromFile(csvFilePath);

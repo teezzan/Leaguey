@@ -9,7 +9,6 @@ export interface Config {
   dbsslconn: boolean;
   databaseUrl?: string;
   dbEntitiesPath: string[];
-  cronJobExpression: string;
   cli: any,
   migrations: string[]
 }
@@ -29,8 +28,7 @@ const config: Config = {
   ],
   cli: {
     migrationsDir: "src/migrations"
-  },
-  cronJobExpression: "0 * * * *"
+  }
 };
 
 export { config };

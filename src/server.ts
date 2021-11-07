@@ -10,7 +10,6 @@ import { SwaggerRouter } from "koa-swagger-decorator";
 import { logger } from "./utils/logger";
 import { config } from "./utils/config";
 import { matchRoute } from "./routes/matchRoute";
-import { cron } from "./utils/cron";
 
 
 
@@ -57,16 +56,14 @@ createConnection(connectionOptions).then(async (conn) => {
     app.use(cors());
     app.use(logger(winston));
     app.use(bodyParser());
-
+    
     app.use(matchRoute.routes()).use(matchRoute.allowedMethods());
-
-    cron.start();
 
 
     const swaggerRoute = new SwaggerRouter({});
     swaggerRoute.swagger({
         title: "Leaguey",
-        description: "Leauge Results at your finertips.",
+        description: "League Match Results at your finertips.",
         version: "0.1.0"
     });
     swaggerRoute.mapDir(__dirname);
