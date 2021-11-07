@@ -3,12 +3,11 @@ services :
   mysqldb:
     image: mysql
     restart: always
-    env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_ROOT_PASSWORD: passworD
+      MYSQL_DATABASE: leaguey
     ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
+      - 3306:3306
     volumes: 
       - db-config:/etc/mysql
       - db-data:/var/lib/mysql

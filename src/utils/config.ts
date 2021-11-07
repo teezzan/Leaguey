@@ -4,6 +4,9 @@ dotenv.config({ path: ".env" });
 
 export interface Config {
   host: string,
+  username: string,
+  password: string,
+  database: string,
   port: number;
   debugLogging: boolean;
   dbsslconn: boolean;
@@ -16,8 +19,11 @@ export interface Config {
 const isDevMode = process.env.NODE_ENV == "development";
 
 const config: Config = {
-  host: isDevMode?"localhost":"mysqldb",
+  host: process.env.MYSQL_HOST || isDevMode ? "localhost" : "mysqldb",
   port: +(process.env.PORT || 3000),
+  username: process.env.MYSQL_USERNAME || 'root',
+  password: process.env.MYSQL_ROOT_PASSWORD || 'passworD',
+  database: process.env.MYSQL_DATABASE || "leaguey",
   debugLogging: isDevMode,
   dbsslconn: !isDevMode,
   dbEntitiesPath: [
