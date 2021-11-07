@@ -33,7 +33,7 @@ const config: Config = {
   password: process.env.MYSQL_ROOT_PASSWORD || 'passworD',
   database: process.env.MYSQL_DATABASE || "leaguey",
   debugLogging: isDevMode,
-  dbsslconn: !isDevMode,
+  dbsslconn: false,
   dbEntitiesPath: [
     ...isDevMode ? ["src/entity/**/*.ts", "src/entity/**/*.js"] : ["dist/entity/**/*.js"],
   ],

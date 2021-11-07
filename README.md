@@ -8,7 +8,9 @@
 - [x] Fetch Historical Match Results.
 - [x] Granulated Fetch based on Season and Division.
 - [x] Generation of PDF of Results using query parameter `format=pdf`.
-- [x] Documentation with [OpenAPI](http://localhost:3000/swagger-html) (http://localhost:3000/swagger-html).
+- [x] Documentation with [OpenAPI](https://leaguey.herokuapp.com/swagger-html) (https://leaguey.herokuapp.com/swagger-html).
+
+**Note**: **I have a deployed version of the aplication found [here on Heroku](https://leaguey.herokuapp.com/swagger-html)**
 
 ## Images
 <details>
