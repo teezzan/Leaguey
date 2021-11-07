@@ -36,7 +36,7 @@ if (connectionOptions.ssl) {
 }
 
 createConnection(connectionOptions).then(async (conn) => {
-
+    
     await conn.runMigrations();
  
 
