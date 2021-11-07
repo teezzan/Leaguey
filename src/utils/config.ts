@@ -28,10 +28,10 @@ const config: Config = {
   debugLogging: isDevMode,
   dbsslconn: !isDevMode,
   dbEntitiesPath: [
-    ...isDevMode ? ["src/entity/**/*.{ts/js}"] : ["dist/entity/**/*.js"],
+    ...isDevMode ? ["src/entity/**/*.ts", "src/entity/**/*.js"] : ["dist/entity/**/*.js"],
   ],
   migrations: [
-    ...isDevMode ? ["src/migrations/*.{ts/js}"] : ["dist/migrations/*.js"],
+    ...isDevMode ? ["src/migrations/*.ts", "src/migrations/*.js"] : ["dist/migrations/*.js"],
   ],
   cli: {
     migrationsDir: "src/migrations"

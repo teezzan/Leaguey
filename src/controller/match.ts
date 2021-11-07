@@ -86,7 +86,7 @@ export default class MatchController {
     @description("Get the league results available by a tag.")
     @query({
         tag: { type: 'string', required: true, description: 'league season pair tag' },
-        format: { type: 'string', required: false, description: 'return pdf' },
+        format: { type: 'string', required: false, description: 'Generate pdf. ' },
     })
     public static async GetResultsByTag(ctx: Context): Promise<void> {
         try {
