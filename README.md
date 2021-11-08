@@ -67,6 +67,17 @@ docker run --rm -it \
     leaguey:latest
 
 ```
+You can also pull the image from DockerHub with:
+```bash
+docker run --rm -it \
+    --network="host" \
+    -e MYSQL_ROOT_PASSWORD='passworD' \
+    -e MYSQL_USERNAME='root' \
+    -e MYSQL_DATABASE='leaguey' \
+    -e MYSQL_HOST='localhost' \
+    -p 3000:3000/tcp \
+    teezzan/leaguey:latest
+```
 ### Local Environment
 
 Foremost, you have to clone this repository and install all the dependencies with the following commands.
