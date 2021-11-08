@@ -51,7 +51,7 @@ docker-compose -f "docker-compose.yml" up -d --build
 ```
 
 ### Docker
-To run the application with docker, you need a local istallation of MySQL and the `MYSQL_DATABASE` already created. After satisfying the reuirement, run the following to build the image. **Note**: `MYSQL_DATABASE` will not be created automatically and would need to ba manually created.
+To run the application with docker, you need a local istallation of MySQL and the `MYSQL_DATABASE` already created. After satisfying the reuirement, run the following to build the image. **Note**: `MYSQL_DATABASE` will not be created automatically and would need to be manually created.
 ```bash
 docker build --pull --rm -f "Dockerfile" -t leaguey:latest "."
 ```
