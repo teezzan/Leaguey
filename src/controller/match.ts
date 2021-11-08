@@ -10,6 +10,11 @@ var FormData = require('form-data');
 
 let remote_server_url = 'https://file.io/';
 
+interface RawMatch  {
+    match_div: string,
+    match_season: string
+}
+
 
 @responsesAll({ 200: { description: "success" }, 400: { description: "Bad request" } })
 @tagsAll(["Matches"])
@@ -21,10 +26,7 @@ export default class MatchController {
     @description("List the league and season pairs for which there are results available as string tags.")
     public static async ListPairsAsTag(ctx: Context): Promise<void> {
 
-        const matches: Array<{
-            match_div: string,
-            match_season: string
-        }> = await getManager()
+        const matches: RawMatch[] = await getManager()
             .createQueryBuilder(MatchResults, "match")
             .select(["match.div", "match.season"])
             .execute();
@@ -48,12 +50,9 @@ export default class MatchController {
     @description("List the league and season pairs for which there are results available.")
     public static async ListPairs(ctx: Context): Promise<void> {
 
-        const matches: Array<{
-            match_div: string,
-            match_season: string
-        }> = await getManager()
-            .createQueryBuilder(MatchResults, "match")
-            .select(["match.div", "match.season"])
+        const matches: RawMatch[] = await getManager()
+            .createQueryBuilder(MatchResults, 'match')
+            .select(['match.div', 'match.season'])
             .execute();
 
 
@@ -92,13 +91,13 @@ export default class MatchController {
         try {
 
             let tag = ctx.request.query.tag as string;
-            const div = tag.split(" ")[0]
-            let raw_season = tag.split(" ")[1]
+            const div = tag.split(' ')[0]
+            let raw_season = tag.split(' ')[1]
 
-            if (raw_season.split("-").length !== 2)
-                throw new Error('incorrect Tag')
+            if (raw_season.split('-').length !== 2)
+                throw new Error('Incorrect Tag')
 
-            let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
+            let season = `${raw_season.split('-')[0]}${raw_season.split('-')[1].substr(2)}`
             let results = await MatchResults.find({ div, season });
 
             let format = ctx.request.query.format as string;
@@ -129,7 +128,7 @@ export default class MatchController {
         div: { type: 'string', required: true, description: 'Division' },
     })
     @query({
-        format: { type: 'string', required: false, description: 'return pdf' },
+        format: { type: 'string', required: false, description: 'eg: pdf' },
     })
     public static async GetResults(ctx: Context): Promise<void> {
         try {
@@ -137,10 +136,10 @@ export default class MatchController {
             const div = ctx.request.body.div;
             let raw_season = ctx.request.body.season;
 
-            if (raw_season.split("-").length !== 2)
-                throw new Error('incorrect Tag')
+            if (raw_season.split('-').length !== 2)
+                throw new Error('Incorrect Tag')
 
-            let season = `${raw_season.split("-")[0]}${raw_season.split("-")[1].substr(2)}`
+            let season = `${raw_season.split('-')[0]}${raw_season.split('-')[1].substr(2)}`
             let results = await MatchResults.find({ div, season });
 
             let format = ctx.request.query.format as string;
@@ -167,7 +166,7 @@ export default class MatchController {
             })
 
             const tableArray = {
-                headers: ["id", "Div", "Season", "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "FTR", "HTHG", "HTAG", "HTR"],
+                headers: ['id', 'Div', 'Season', 'Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR', 'HTHG', 'HTAG', 'HTR'],
                 rows,
             };
 
@@ -191,7 +190,7 @@ export default class MatchController {
                 }).then((resp) => {
                     resolve({ link: resp.data.link })
                 }).catch((err) => {
-                    reject({ message: "Server Error" });
+                    reject({ message: 'Server Error' });
                 })
             });
             doc.table(tableArray, { width: 590 });

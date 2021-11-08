@@ -16,14 +16,14 @@ export interface Config {
   migrations: string[]
 }
 
-const isDevMode = process.env.NODE_ENV == "development";
+const isDevMode = process.env.NODE_ENV == 'development';
 
 let host;
-if (process.env.NODE_ENV !== "development"){
-  host = "mysqldb";  
+if (process.env.NODE_ENV !== 'development'){
+  host = 'mysqldb';  
 }
 else {
-  host = "localhost";
+  host = 'localhost';
 }
 
 const config: Config = {
@@ -31,17 +31,17 @@ const config: Config = {
   port: +(process.env.PORT || 3000),
   username: process.env.MYSQL_USERNAME || 'root',
   password: process.env.MYSQL_ROOT_PASSWORD || 'passworD',
-  database: process.env.MYSQL_DATABASE || "leaguey",
+  database: process.env.MYSQL_DATABASE || 'leaguey',
   debugLogging: isDevMode,
   dbsslconn: false,
   dbEntitiesPath: [
-    ...isDevMode ? ["src/entity/**/*.ts", "src/entity/**/*.js"] : ["dist/entity/**/*.js"],
+    ...isDevMode ? ['src/entity/**/*.ts', 'src/entity/**/*.js'] : ['dist/entity/**/*.js'],
   ],
   migrations: [
-    ...isDevMode ? ["src/migrations/*.ts", "src/migrations/*.js"] : ["dist/migrations/*.js"],
+    ...isDevMode ? ['src/migrations/*.ts', 'src/migrations/*.js'] : ['dist/migrations/*.js'],
   ],
   cli: {
-    migrationsDir: "src/migrations"
+    migrationsDir: 'src/migrations'
   }
 };
 

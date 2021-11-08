@@ -58,20 +58,4 @@ export class MatchResults extends BaseEntity {
     @Column()
     @IsString()
     htr: string;
-
-
 }
-export const matchSchema = {
-    id: { type: "string", example: 1 },
-    div: { type: "string",  example: "SP1" },
-    season: { type: "string",  example: "2016-2017" },
-    date: { type: "string",  example: "19/18/2016" },
-    home_team: { type: "string",  example: "La Coruna" },
-    away_team: { type: "string",  example: "Eibar" },
-    fthg: { type: "number",  example: 2},
-    ftag: { type: "number",  example: 1},
-    ftr: { type: "string",  example: "H" },
-    hthg: { type: "number",  example: 0 },
-    htag: { type: "number",  example: 0 },
-    htr: { type: "string",  example: "D" }
-};
